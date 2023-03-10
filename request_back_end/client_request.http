@@ -1,0 +1,58 @@
+###
+GET http://localhost:3001/api/client
+
+
+###
+GET http://localhost:3001/api/client/4
+
+
+###
+POST http://localhost:3001/api/client
+Content-Type: application/json
+
+{
+    "nom_client": "BNI 2",
+    "adresse": "Toto",
+    "email": "tmv@bfv_tamatave.mg",
+    "tel": "0326965214",
+    "ville": 2
+}
+
+###
+PUT http://localhost:3001/api/client/4
+Content-Type: application/json
+
+{
+    "nom_client": "BNI u",
+    "adresse": "Toto u",
+    "email": "tmv@bfv_tamatave.mg u",
+    "tel": "032696521u",
+    "ville": 3
+}
+
+###
+DELETE http://localhost:3001/api/client/4
+
+###
+DELETE http://localhost:3001/api/client
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_client":[6,8]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+

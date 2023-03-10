@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Style HTML Tables with CSS</title>
+    <!-- <link rel="stylesheet" href="./main.css"> -->
+    <style>
+        * {
+    /* Change your font family */
+    font-family: sans-serif;
+}
+
+.container{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+}
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+    background-color: #0aa4dc;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="maintenance">
+            <h1>CONTRAT DE MAINTENANCE</h1>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>NumeroContrat</th>
+                    <th>Equipement</th>
+                    <th>Date debut</th>
+                    <th>Date fin</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>num-1</td>
+                    <td>equip-1 <br>equip-2 <br> equip-3</td>
+                    <td>21-02-2011</td>
+                    <td>22-25-2015</td>
+                </tr>
+                <tr>
+                    <td>num-2</td>
+                    <td>equip-10</td>
+                    <td>21-02-2011</td>
+                    <td>22-25-2015</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div class="garantie">
+            <h1>CONTRAT DE GARANTIE</h1>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>NumeroContrat</th>
+                    <th>N° Serie</th>
+                    <th>Modèle | Marque | Famille</th>
+                    <th>Date debut</th>
+                    <th>Date fin</th>
+                    <th>Statut</th>
+                    <th>client</th>
+                    <th>adresse</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Domenic</td>
+                    <td>88,110</td>
+                    <td>dcode</td>
+                    <td>dcosddzde</td>
+                    <td>2</td>
+                    <td>Sally</td>
+                    <td>72,400</td>
+                    <td>Students</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

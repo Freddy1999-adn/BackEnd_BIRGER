@@ -1,0 +1,62 @@
+###
+GET http://localhost:3001/api/utilisateur
+
+
+###
+GET http://localhost:3001/api/utilisateur/47
+
+###
+GET http://localhost:3001/api/utilisateur/get_user_by_email
+Content-Type: application/json
+
+{
+    "email": "nabo.sylvio@gmail.com"
+}
+
+
+###
+POST http://localhost:3001/api/utilisateur
+Content-Type: application/json
+
+{
+    "nom": "sylvio",
+    "pseudo": "jerry",
+    "email": "nabo.sylvio@gmail.com",
+    "tel": "0349442509",
+    "is_envoie_rappel": true,
+    "is_admin": true
+}
+
+###
+PUT http://localhost:3001/api/utilisateur/54
+Content-Type: application/json
+
+{
+    "nom": "ttt",
+    "pseudo": "ttt",
+    "email": "ttt@gmaildd.com",
+    "tel": "",
+    "image_path": "./storage/public/images/zaza2.jpg",
+    "is_envoie_rappel": false,
+    "is_admin": false
+}
+
+
+###
+DELETE http://localhost:3001/api/utilisateur/35
+
+
+
+###login
+POST http://localhost:3001/api/utilisateur/login
+Content-Type: application/json
+
+{
+    "email": "rolio@gmail.com",
+    "password": "aBFcca93"
+}
+
+###forgot password
+
+###logout
+POST http://localhost:3001/api/utilisateur/logout

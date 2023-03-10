@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model client {
+  id                      Int                       @id @default(autoincrement())
+  nom_client              String                    @db.VarChar(100)
+  adresse                 String                    @db.VarChar(255)
+  email                   String?                   @default(" ") @db.VarChar(50)
+  tel                     String?                   @db.VarChar(10)
+  ville_id                Int
+  ville                   ville                     @relation(fields: [ville_id], references: [id], onDelete: Cascade, map: "fk_client_ville")
+  contrat_maintenance     contrat_maintenance[]
+  contrat_maintenance_gab contrat_maintenance_gab[]
+  livraison               livraison[]
+
+  @@index([ville_id], map: "fk_client_ville")
+}
+
+model contrat_garantie {
+  id                      Int                       @id @default(autoincrement())
+  num_contrat             String                    @unique(map: "num_contrat") @db.VarChar(20)
+  observation             String?                   @db.VarChar(255)
+  livraison_id            Int?                      @unique(map: "livraison_id")
+  livraison               livraison?                @relation(fields: [livraison_id], references: [id], onDelete: Cascade, map: "contrat_garantie_livraison")
+  contrat_garantie_detail contrat_garantie_detail[]
+}
+
+model contrat_garantie_detail {
+  id                  Int              @id @default(autoincrement())
+  date_debut          DateTime         @db.Date
+  date_fin            DateTime         @db.Date
+  statut              String           @db.VarChar(20)
+  is_alarmed_before   Boolean          @default(false)
+  date_alarm_before   DateTime?        @db.Date
+  equipement_id       Int
+  contrat_garantie_id Int
+  contrat_garantie    contrat_garantie @relation(fields: [contrat_garantie_id], references: [id], onDelete: Cascade, map: "fk_contrat_garantie_detail_contrat_garantie")
+  equipement          equipement       @relation(fields: [equipement_id], references: [id], onDelete: Cascade, map: "fk_contrat_garantie_detail_equipement")
+
+  @@index([contrat_garantie_id], map: "fk_contrat_garantie_detail_contrat_garantie")
+  @@index([equipement_id], map: "fk_contrat_garantie_detail_equipement")
+}
+
+model contrat_maintenance {
+  id                         Int                          @id @default(autoincrement())
+  num_contrat                String                       @db.VarChar(20)
+  num_facture                String?                      @db.VarChar(20)
+  date_facture               DateTime?                    @db.Date
+  date_debut                 DateTime                     @db.Date
+  date_fin                   DateTime                     @db.Date
+  statut                     String                       @db.VarChar(25)
+  redevance_totale           Decimal?                     @db.Decimal(10, 2)
+  observation                String?                      @default("NULL") @db.VarChar(255)
+  is_alarmed_before          Boolean                      @default(false)
+  date_alarm_before          DateTime?                    @db.Date
+  date_proposition           DateTime?                    @db.Date
+  client_id                  Int
+  client                     client                       @relation(fields: [client_id], references: [id], onDelete: Cascade, map: "fk_contrat_maintenance_client")
+  contrat_maintenance_detail contrat_maintenance_detail[]
+
+  @@index([client_id], map: "fk_contrat_maintenance_client")
+}
+
+model contrat_maintenance_detail {
+  id                     Int                 @id @default(autoincrement())
+  contrat_maintenance_id Int
+  equipement_id          Int
+  contrat_maintenance    contrat_maintenance @relation(fields: [contrat_maintenance_id], references: [id], onDelete: Cascade, map: "fk_contrat_maintenance_detail_contrat_maintenance")
+  equipement             equipement          @relation(fields: [equipement_id], references: [id], onDelete: Cascade, map: "fk_contrat_maintenance_detail_equipement")
+
+  @@index([contrat_maintenance_id], map: "fk_contrat_maintenance_detail_contrat_maintenance")
+  @@index([equipement_id], map: "fk_contrat_maintenance_detail_equipement")
+}
+
+model equipement {
+  id                         Int                          @id @default(autoincrement())
+  num_serie                  String                       @unique(map: "num_serie") @db.VarChar(20)
+  marque                     String                       @db.VarChar(50)
+  modele                     String                       @db.VarChar(50)
+  fournisseur                String?                      @db.VarChar(100)
+  duree_garantie             Int?
+  redevance_contrat          Decimal?                     @db.Decimal(10, 2)
+  is_locale                  Boolean                      @default(true)
+  livraison_id               Int?
+  famille_id                 Int?
+  famille                    famille?                     @relation(fields: [famille_id], references: [id], onDelete: Cascade, map: "fk_equipement_famille")
+  livraison                  livraison?                   @relation(fields: [livraison_id], references: [id], onUpdate: SetNull, map: "fk_equipement_livraison")
+  contrat_garantie_detail    contrat_garantie_detail[]
+  contrat_garantie_gab       contrat_garantie_gab[]
+  contrat_maintenance_detail contrat_maintenance_detail[]
+  contrat_maintenance_gab    contrat_maintenance_gab[]
+
+  @@index([livraison_id], map: "fk_equipement_livraison")
+  @@index([famille_id], map: "fk_equipement_famille")
+}
+
+model famille {
+  id          Int          @id @default(autoincrement())
+  nom_famille String       @unique(map: "nom_famille") @db.VarChar(255)
+  image_path  String?      @db.VarChar(255)
+  service_id  Int
+  service     service      @relation(fields: [service_id], references: [id], onDelete: Cascade, map: "fk_famille_service")
+  equipement  equipement[]
+
+  @@index([service_id], map: "fk_famille_service")
+}
+
+model livraison {
+  id                   Int                    @id @default(autoincrement())
+  date_livraison       DateTime               @db.Date
+  date_facture         DateTime?              @db.Date
+  num_bon_livraison    String                 @unique(map: "num_bon_livraison") @db.VarChar(20)
+  num_facture          String?                @unique(map: "num_facture") @db.VarChar(20)
+  observation          String?                @db.VarChar(255)
+  client_id            Int
+  client               client                 @relation(fields: [client_id], references: [id], onDelete: Cascade, map: "fk_livraison_client")
+  contrat_garantie     contrat_garantie?
+  contrat_garantie_gab contrat_garantie_gab[]
+  equipement           equipement[]
+
+  @@index([client_id], map: "fk_livraison_client")
+}
+
+model parametre {
+  id                              Int @id @default(autoincrement())
+  jour_avant_notif_contrat        Int @default(45)
+  duree_annee_contrat_maintenance Int @default(1)
+}
+
+model province {
+  id           Int     @id @default(autoincrement())
+  nom_province String  @unique(map: "nom_province") @db.VarChar(50)
+  ville        ville[]
+}
+
+model service {
+  id          Int       @id @default(autoincrement())
+  nom_service String    @db.VarChar(50)
+  description String?   @db.VarChar(255)
+  famille     famille[]
+}
+
+model utilisateur {
+  id               Int     @id @default(autoincrement())
+  nom              String  @db.VarChar(100)
+  pseudo           String  @db.VarChar(50)
+  email            String  @unique(map: "email") @db.VarChar(30)
+  tel              String? @db.VarChar(10)
+  image_path       String? @db.VarChar(255)
+  password         String  @db.VarChar(255)
+  is_envoie_rappel Boolean @default(false)
+  is_admin         Boolean @default(false)
+}
+
+model ville {
+  id          Int      @id @default(autoincrement())
+  nom_ville   String   @db.VarChar(255)
+  province_id Int
+  province    province @relation(fields: [province_id], references: [id], onDelete: Cascade, map: "fk_ville_province")
+  client      client[]
+
+  @@index([province_id], map: "fk_ville_province")
+}
+
+model contrat_garantie_gab {
+  id                Int        @id @default(autoincrement())
+  date_installation DateTime   @db.Date
+  date_fin          DateTime   @db.Date
+  statut            String     @db.VarChar(20)
+  site_installation String     @db.VarChar(255)
+  observation       String?    @db.VarChar(255)
+  is_alarmed_before Boolean    @default(false)
+  date_alarm_before DateTime?  @db.Date
+  equipement_id     Int
+  livraison_id      Int
+  equipement        equipement @relation(fields: [equipement_id], references: [id], onDelete: Cascade, map: "fk_contrat_garantie_gab_equipement")
+  livraison         livraison  @relation(fields: [livraison_id], references: [id], onDelete: Cascade, map: "fk_contrat_garantie_gab_livraison")
+
+  @@index([livraison_id], map: "fk_contrat_garantie_gab_livraison")
+  @@index([equipement_id], map: "fk_contrat_garantie_gab_equipement")
+}
+
+model contrat_maintenance_gab {
+  id                Int             @id @default(autoincrement())
+  date_debut        DateTime        @db.Date
+  date_fin          DateTime        @db.Date
+  site_installation String          @db.VarChar(255)
+  statut            String          @db.VarChar(20)
+  observation       String?         @db.VarChar(255)
+  date_proposition  DateTime?       @db.Date
+  redevance_totale  Decimal?        @db.Decimal(10, 2)
+  annee_contrat     Int
+  is_alarmed_before Boolean         @default(false)
+  date_alarm_before DateTime?       @db.Date
+  client_id         Int
+  equipement_id     Int
+  client            client          @relation(fields: [client_id], references: [id], onDelete: Cascade, map: "fk_contrat_maintenance_gab_client")
+  equipement        equipement      @relation(fields: [equipement_id], references: [id], onDelete: Cascade, map: "fk_contrat_maintenance_gab_equipement")
+  redevance_gab     redevance_gab[]
+
+  @@index([client_id], map: "fk_contrat_maintenance_gab_client")
+  @@index([equipement_id], map: "fk_contrat_maintenance_gab_equipement")
+}
+
+model redevance_gab {
+  id                         Int                     @id @default(autoincrement())
+  type                       String                  @db.VarChar(2)
+  num_facture                String?                 @db.VarChar(255)
+  date_facture               DateTime?               @db.Date
+  montant                    Decimal                 @db.Decimal(10, 2)
+  isPaid                     Boolean                 @default(false)
+  contrat_maintenance_gab_id Int
+  contrat_maintenance_gab    contrat_maintenance_gab @relation(fields: [contrat_maintenance_gab_id], references: [id], onDelete: Cascade, map: "fk_redevance_gab_contrat_maintenance_gab")
+
+  @@index([contrat_maintenance_gab_id], map: "fk_redevance_gab_contrat_maintenance_gab")
+}

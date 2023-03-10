@@ -1,0 +1,51 @@
+###
+GET http://localhost:3001/api/province
+
+
+###
+GET http://localhost:3001/api/province/8
+
+
+###
+POST http://localhost:3001/api/province
+Content-Type: application/json
+
+{
+    "nom_province": "test_province4"
+}
+
+###
+PUT http://localhost:3001/api/province/10
+Content-Type: application/json
+
+{
+    "nom_province": "test_updated2"
+}
+
+
+###
+DELETE http://localhost:3001/api/province/10
+
+###
+DELETE http://localhost:3001/api/province
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_province":[8,9,11,12]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+

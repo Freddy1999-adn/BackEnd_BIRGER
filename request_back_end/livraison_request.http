@@ -1,0 +1,73 @@
+###
+GET http://localhost:3001/api/livraison
+
+###
+GET http://localhost:3001/api/livraison/1
+
+###
+POST http://localhost:3001/api/livraison
+Content-Type: application/json
+
+{
+    "date_livraison": "2022-11-16",
+    "date_facture": "2022-10-16",
+    "num_bon_livraison": "bn-7",
+    "num_facture": "fact-7",
+    "observation": "livraison des 3 equipments",
+    "client": 4,
+    "equipement": [28,29]
+}
+
+###
+PUT http://localhost:3001/api/livraison/22
+Content-Type: application/json
+
+{
+    "date_livraison": "2019-11-16",
+    "num_bon_livraison": "bn-ju",
+    "num_facture": "fact-ju",
+    "client_id": 3,
+    "equipement_id": [39,40,44]
+}
+
+###
+DELETE http://localhost:3001/api/livraison/26
+
+###
+DELETE http://localhost:3001/api/livraison
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_livraison":[17,13]
+    
+}
+
+###
+POST http://localhost:3001/api/livraison/export/get_many_livraison
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_livraison":[5,10]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+
+
+//traitement
+
+###
+GET http://localhost:3001/api/check_livraison

@@ -1,0 +1,44 @@
+###
+GET http://localhost:3001/api/contrat_maintenance
+
+###
+GET http://localhost:3001/api/contrat_maintenance/133
+
+//traitement
+
+###
+GET http://localhost:3001/api/check_contrat
+
+//contrat_for_this_year
+###
+GET http://localhost:3001/api/check_contrat/contrat_for_this_year
+
+//contrat expired in 45 days
+###
+GET http://localhost:3001/api/check_contrat/contrat_expired_in_45_days
+
+//contrat expired , should be updated
+###
+GET http://localhost:3001/api/check_contrat/contrat_expired/maintenance
+
+//contrat expired , should be updated
+###
+GET http://localhost:3001/api/check_contrat/contrat_expired/garantie
+
+
+###
+GET http://localhost:3001/api/check_contrat/contrat_expired/maintenance_gab
+
+###
+GET http://localhost:3001/api/check_contrat/contrat_expired/garantie_gab
+
+
+//all_contrat_count_between_2_date
+###
+POST http://localhost:3001/api/check_contrat/all_contrat_count_between_2_date
+Content-Type: application/json
+
+{
+    "date_debut_contrat": "2021-01-01",
+    "date_fin_contrat": "2022-12-31"
+}

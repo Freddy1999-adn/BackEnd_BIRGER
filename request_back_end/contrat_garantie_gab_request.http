@@ -1,0 +1,84 @@
+###
+GET http://localhost:3001/api/contrat_garantie_gab
+
+
+###
+GET http://localhost:3001/api/contrat_garantie_gab/4
+
+//ajout contrat
+###
+POST http://localhost:3001/api/contrat_garantie_gab
+Content-Type: application/json
+
+{
+    "site_installation" : "Mangarano 2",
+    "date_installation" : "2021-05-12",
+    "observation" : "obs gab",
+    "equipement" : {
+        "id": 79,
+        "num_serie": "num-gab-1",
+        "marque": "mar-gab-1",
+        "modele": "mod-gab-1",
+        "fournisseur": null,
+        "duree_garantie": 3,
+        "is_locale": true,
+        "livraison_id": 5,
+        "famille_id": 44,
+        "famille": {
+            "id": 44,
+            "nom_famille": "GAB",
+            "image_path": null,
+            "service_id": 3,
+            "service": {
+                "id": 3,
+                "nom_service": "MONETIQUE",
+                "description": "Tout ceux qui concernent le service monétique"
+            }
+        }                                           
+    }
+}
+
+###
+PUT http://localhost:3001/api/contrat_garantie_gab/4
+Content-Type: application/json
+
+{
+    "site_installation" : "u",
+    "date_installation" : "2023-05-12",
+    "observation" : "obs gab u",
+    "equipement" : {
+        "id": 79,
+        "num_serie": "num-gab-1",
+        "marque": "mar-gab-1",
+        "modele": "mod-gab-1",
+        "fournisseur": null,
+        "duree_garantie": 3,
+        "is_locale": true,
+        "livraison_id": 5,
+        "famille_id": 44,
+        "famille": {
+            "id": 44,
+            "nom_famille": "GAB",
+            "image_path": null,
+            "service_id": 3,
+            "service": {
+                "id": 3,
+                "nom_service": "MONETIQUE",
+                "description": "Tout ceux qui concernent le service monétique"
+            }
+        }                                           
+    }
+}
+
+###
+DELETE http://localhost:3001/api/contrat_garantie_gab/4
+
+###
+DELETE http://localhost:3001/api/contrat_garantie_gab
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_contrat":[48,49,50,51,52]
+    
+}

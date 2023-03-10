@@ -1,0 +1,53 @@
+###
+GET http://localhost:3001/api/famille
+
+
+###
+GET http://localhost:3001/api/famille/44
+
+
+###
+POST http://localhost:3001/api/famille
+Content-Type: application/json
+
+{
+    "nom_famille": "DAB5",
+    "service_id": 1
+}
+
+###
+PUT http://localhost:3001/api/famille/30
+Content-Type: application/json
+
+{
+    "nom_famille": "w up",
+    "service_id": 15
+}
+
+
+###
+DELETE http://localhost:3001/api/famille/29
+
+###
+DELETE http://localhost:3001/api/famille
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_famille":[10,11,12,14,15]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+

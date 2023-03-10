@@ -1,0 +1,52 @@
+###
+GET http://localhost:3001/api/contrat_garantie
+
+
+###
+GET http://localhost:3001/api/contrat_garantie/41
+
+###
+POST http://localhost:3001/api/contrat_garantie/export/get_many_contrat_garantie
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_contrat_garantie":[41,58]
+    
+}
+
+
+//ajout contrat
+###
+POST http://localhost:3001/api/contrat_garantie
+Content-Type: application/json
+
+{
+    "num_contrat": "wa",
+    "observation": "ds",
+    "livraison_id": 7
+}
+
+###
+PUT http://localhost:3001/api/contrat_garantie/41
+Content-Type: application/json
+
+{
+    "num_contrat": "garantie-1",
+    "observation": "ds u",
+    "livraison_id": 5
+}
+
+
+###
+DELETE http://localhost:3001/api/contrat_garantie/10
+
+###
+DELETE http://localhost:3001/api/contrat_garantie
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_contrat":[48,49,50,51,52]
+    
+}

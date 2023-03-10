@@ -1,0 +1,59 @@
+###
+GET http://localhost:3001/api/service
+
+
+###
+GET http://localhost:3001/api/service/15
+
+
+###
+POST http://localhost:3001/api/service
+Content-Type: application/json
+
+{
+    "nom_service": "test_service5"
+}
+
+###
+PUT http://localhost:3001/api/service/15
+Content-Type: application/json
+
+{
+    "nom_service": "my service",
+    "description": "descri service"
+}
+
+
+###
+DELETE http://localhost:3001/api/service/15
+
+###
+DELETE http://localhost:3001/api/service
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_service":[16,15]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+
+### POST EQUIPEMENT FROM SERVICE
+POST http://localhost:3001/api/service
+Content-Type: application/json
+
+{
+    "nom_service": "service_1"
+}

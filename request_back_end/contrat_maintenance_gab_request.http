@@ -1,0 +1,73 @@
+###
+GET http://localhost:3001/api/contrat_maintenance_gab
+
+###
+GET http://localhost:3001/api/contrat_maintenance_gab/23
+
+###
+POST http://localhost:3001/api/contrat_maintenance_gab/export/get_redevance_contrat_maintenance_gab
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_contrat_maintenance_gab":[23,14]
+    
+}
+
+
+//ajout contrat
+###
+POST http://localhost:3001/api/contrat_maintenance_gab
+Content-Type: application/json
+
+{
+    "date_debut": "2024-01-20",
+    "site_installation":"taytaty",
+    "redevance_totale" : 100.000,
+    "date_proposition": "2020-12-10",
+    "observation": "obs",
+    "client_id": 1,
+    "equipement_id": 81,
+    "redevance" : [{
+        "type" : "Q1", 
+        "num_facture" : "fact-r-1", 
+        "date_facture" :  "2022-02-21",
+        "montant" : 350000, 
+        "isPaid":true
+    },{
+        "type" : "Q2", 
+        "num_facture" : "fact-r-2", 
+        "date_facture" :  "2022-02-21",
+        "montant" : 350.50, 
+        "isPaid":false
+    }
+    ]
+}
+
+
+###
+PUT http://localhost:3001/api/contrat_maintenance_gab/1
+Content-Type: application/json
+
+
+{
+    "date_installation": "2022-01-20",
+    "site_installation":"site",
+    "redevance_totale" : 100.000,
+    "date_proposition": "2020-12-10",
+    "observation": "obs",
+    "client_id": 1,
+    "equipement_id": 79,
+    "redevance" : [{
+        "type" : "Q2", 
+        "num_facture" : "fact-rc-1", 
+        "date_facture" :  "2023-02-21",
+        "montant" : 70000, 
+        "isPaid":false
+    }
+    ]
+}
+
+###
+DELETE http://localhost:3001/api/contrat_maintenance_gab/6
+

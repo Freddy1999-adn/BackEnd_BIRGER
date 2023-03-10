@@ -1,0 +1,53 @@
+###
+GET http://localhost:3001/api/ville
+
+
+###
+GET http://localhost:3001/api/ville/4
+
+
+###
+POST http://localhost:3001/api/ville
+Content-Type: application/json
+
+{
+    "nom_ville": "test_ville3",
+    "province_id": 4
+}
+
+###
+PUT http://localhost:3001/api/ville/4
+Content-Type: application/json
+
+{
+    "nom_ville": "test_ville3 u",
+    "province_id": 2
+}
+
+
+###
+DELETE http://localhost:3001/api/ville/4
+
+###
+DELETE http://localhost:3001/api/ville
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_ville":[8,9,11,12]
+    
+}
+
+
+
+###
+PUT http://localhost:3001/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+

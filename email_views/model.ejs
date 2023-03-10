@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title></title> -->
+    <!-- <link rel="stylesheet" href="./main.css"> -->
+    <style>
+        * {
+    /* Change your font family */
+    font-family: sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+.right{
+    text-align: end;
+}
+
+.left{
+    font-weight: bold;
+    font-size: 20px;
+}
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.content-table thead tr {
+    background-color: #0aa4dc;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+    color: black;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid  #0aa4dc;
+}
+
+/* .content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+} */
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <h1>BIRGER</h1>
+        </div>
+        <div class="right">
+            <h3>Liste de contrats expiré dans 45 jours</h3>
+            <p><%= moment().format('LLLL'); %></p>
+        </div>
+    </div>
+    <br><br>
+    <div class="container">
+        <div class="garantie">
+            <h3>CONTRAT DE GARANTIE AUTRES QUE GAB (<%= garantie.length %>)</h3>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>N° CONTRAT</th>
+                    <th>N° FACT</th>
+                    <th>N° BN LIV</th>
+                    <th>DUREE</th>
+                    <th>CLIENT</th>
+                    <th>ADRESSE</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% garantie.forEach((item)=>{ %>
+                        <tr>
+                            <td> <%= item.num_contrat %> </td>
+                            <td><%= item.livraison?.num_facture %></td>
+                            <td><%= item.livraison?.num_bon_livraison %></td>
+                            <td>
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>DATE DEBUT</th>
+                                            <th>DATE FIN</th>
+                                            <th>N° SERIE</th>
+                                            <th>MARQUE</th>
+                                            <th>MODELE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% item.contrat_garantie_detail.map(({equipement,date_debut,date_fin})=>{ %>
+                                            <tr>
+                                                <td><%= moment(date_debut).format('DD/MM/YYYY') %></td>
+                                                <td><%= moment(date_fin).format('DD/MM/YYYY') %></td>
+                                                <td><%= equipement.num_serie %></td>
+                                                <td><%= equipement.marque %></td>
+                                                <td><%= equipement.modele %></td>
+                                            </tr>
+                                            <% });
+                                        %>
+                                    </tbody>
+                                </table>
+                            </td>               
+                            <td><%= item?.livraison?.client?.nom_client %></td>
+                            <td><%= item?.livraison?.client?.adresse %></td>        
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div class="garantie_gab">
+            <h3>CONTRAT DE GARANTIE GAB (<%= garantie_gab.length %>)</h3>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>PROVINCE</th>
+                        <th>VILLE</th>
+                        <th>CLIENT</th>
+                        <th>SITE INST</th>
+                        <th>DATE INST</th>
+                        <th>DATE FIN</th>
+                        <th>EQUIPEMENT</th>
+                        <th>N° BN LIV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% garantie_gab.forEach((item)=>{ %>
+                        <tr>
+                            <td><%= item?.livraison?.client?.ville?.province?.nom_province %></td>
+                            <td><%= item?.livraison?.client?.ville?.nom_ville %></td>
+                            <td><%= item?.livraison?.client?.nom_client %></td>
+                            <td><%= item?.site_installation %></td>
+                            <td><%= moment(item?.date_installation).format('DD/MM/YYYY') %></td>
+                            <td><%= moment(item?.date_fin).format('DD/MM/YYYY') %></td>
+                            <td>
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>N° SERIE</th>
+                                            <th>MARQUE</th>
+                                            <th>MODELE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= item?.equipement.num_serie %></td>
+                                            <td><%= item?.equipement.marque %></td>
+                                            <td><%= item?.equipement.modele %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><%= item.livraison?.num_bon_livraison %></td>                     
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        
+    </div>
+    <div class="container">
+        <div class="maintenance">
+            <h3><strong>CONTRAT DE MAINTENANCE AUTRES QUE GAB (<%= maintenance.length %>) </strong></h3>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>N° CONTRAT</th>
+                    <th>DEBUT</th>
+                    <th>FIN</th>
+                    <th>EQUIPEMENT</th>
+                    <th>CLIENT</th>
+                    <th>ADRESSE</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% maintenance.forEach((item)=>{ %>
+                        <tr>
+                            <td> <%= item.num_contrat %> </td>
+                            <td><%= moment(item.date_debut).format('DD/MM/YYYY') %></td>
+                            <td><%= moment(item.date_fin).format('DD/MM/YYYY') %></td>
+                            <td>
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>N° SERIE</th>
+                                            <th>MARQUE</th>
+                                            <th>MODELE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% item?.contrat_maintenance_detail?.map(({equipement})=>{ %>
+                                            <tr>
+                                                <td><%= equipement?.num_serie %></td>
+                                                <td><%= equipement?.marque %></td>
+                                                <td><%= equipement?.modele %></td>
+                                            </tr>
+                                            <% });
+                                        %>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><%= item?.client?.nom_client %></td>
+                            <td><%= item?.client?.adresse %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div class="maintenance_gab">
+            <h3>CONTRAT DE MAINTENANCE GAB (<%= maintenance_gab.length %>)</h3>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>PROVINCE</th>
+                    <th>VILLE</th>
+                    <th>CLIENT</th>
+                    <th>ADRESSE</th>
+                    <th>DATE DEBUT</th>
+                    <th>SITE INST</th>
+                    <th>EQUIPEMENT</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% maintenance_gab.forEach((item)=>{ %>
+                        <tr>
+                            <td><%= item?.client?.ville?.province?.nom_province %></td>
+                            <td><%= item?.client?.ville?.nom_ville %></td>
+                            <td><%= item?.client?.nom_client %></td>
+                            <td><%= item?.client?.adresse %></td>
+                            <td><%= item?.site_installation %></td>
+                            <td><%= moment(item?.date_debut).format('DD/MM/YYYY') %></td>  
+                            <td>
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>N° SERIE</th>
+                                            <th>MARQUE</th>
+                                            <th>MODELE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= item?.equipement.num_serie %></td>
+                                            <td><%= item?.equipement.marque %></td>
+                                            <td><%= item?.equipement.modele %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+###
+GET http://localhost:3001/api/contrat_maintenance
+
+###
+GET http://localhost:3001/api/contrat_maintenance/1
+
+
+# POST http://localhost:3001/api/contrat_maintenance/filter/28-12-2021
+
+###
+POST http://localhost:3001/api/contrat_maintenance/export/get_many_contrat_maintenance
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_contrat_maintenance":[3,8,6]
+    
+}
+
+
+###
+POST http://localhost:3001/api/contrat_maintenance/filter
+Content-Type: application/json
+
+{
+    "date_debut": "28/12/2021",
+    "date_fin": "27/12/2023",
+    "statut": "valide",
+    "province":{},
+    "famille":{},
+    "service":{}
+}
+
+//ajout contrat
+###
+POST http://localhost:3001/api/contrat_maintenance
+Content-Type: application/json
+
+{
+
+    "num_contrat":"tay",
+    "client_id": 1,
+    "equipement_id":[59,60] ,
+    "redevance_totale":452600.25,
+    "duree_annee":1,
+    "num_facture": "num",
+    "date_debut": "2022-02-13",
+    "date_facture":"2020-02-13",
+    "date_proposition": "2025-06-10",
+    "observation":null
+}
+
+
+###
+PUT http://localhost:3001/api/contrat_maintenance/27
+Content-Type: application/json
+
+{
+    "date_debut": "2022-06-10",
+    "num_contrat": "con-5 u",
+    "description": "Desc 5 u",
+    "client_id": 4,
+    "equipement_id": [40],
+    "date_proposition": "2025-06-10"
+    
+}
+
+###
+DELETE http://localhost:3001/api/contrat_maintenance/27
+

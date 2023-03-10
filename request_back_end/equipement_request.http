@@ -1,0 +1,97 @@
+//getAlEquipement
+###
+GET http://localhost:3001/api/equipement
+
+
+//getEquipementToAddInContratMaintenance
+###
+GET http://localhost:3001/api/equipement/add_to_contrat_maintenance
+
+//get equipement to renew or add_to_contrat_maintenance
+###
+POST http://localhost:3001/api/equipement/renew_add_to_contrat_maintenance
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_equipement_contrat":[12,65]
+    
+}
+
+
+//getEquipementToAddInContratGarantie
+###
+GET http://localhost:3001/api/equipement/add_to_contrat_garantie_gab
+
+//getEquipementToAddInContratGarantie
+###
+GET http://localhost:3001/api/equipement/edit_to_contrat_garantie_gab/96
+
+
+//getEquipementToAddInContratMaintenanceGab
+###
+GET http://localhost:3001/api/equipement/add_to_contrat_maintenance_gab
+
+//GET equipement to edit_in_livraison
+###
+POST http://localhost:3001/api/equipement/edit_to_livraison
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_equipement_livraison":[96,97]
+    
+}
+
+//getEquipementToEditInContratMaintenanceGab
+###
+GET http://localhost:3001/api/equipement/edit_to_contrat_maintenance_gab/79
+
+###
+GET http://localhost:3001/api/equipement/79
+
+###
+POST http://localhost:3001/api/equipement
+Content-Type: application/json
+
+{
+    "num_serie": "equip-oo",
+    "is_locale": true,
+    "marque": "mar-oo",
+    "modele": "mod-oo",
+    "famille": 2,
+    "duree_garantie": 365,
+    "redevance_contrat": 250000.56,
+    "fournisseur": "anjoma"
+}
+
+###
+PUT http://localhost:3001/api/equipement/89
+Content-Type: application/json
+
+{
+    "num_serie": "equip-zala",
+    "is_locale": true,
+    "marque": "zala-oo",
+    "modele": "zala-oo",
+    "famille": 2,
+    "duree_garantie": 365,
+    "redevance_contrat": 960000.5674,
+    "fournisseur": null
+
+}
+
+
+###
+DELETE http://localhost:3001/api/equipement/43
+
+###
+DELETE http://localhost:3001/api/equipement
+Content-Type: application/json
+
+{
+ 
+    "array_of_id_equipement":[21,19,17,16]
+    
+}
+
